@@ -9,7 +9,7 @@ class HomeControlador extends Controlador{
     //este sera el metodo que se usara para el inicio
     public function index():void{
 
-        $this->renderizarVista('home/inicio',[
+        $this->renderizarVista('home/login',[
             'titulo'=>'Inicio',
             'mensaje'=>'Bienvenido a mi mvc'
         ]);
