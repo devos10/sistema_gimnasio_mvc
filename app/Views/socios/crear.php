@@ -1,6 +1,5 @@
-            
-<?php include_once (APP_URL.'Views/partials/head.php');?>         
-            
+            <?php include_once(APP_URL . 'Views/partials/head.php'); ?>
+
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="section-title">Clientes</h2>
                 <!-- Botón que activa el modal -->
@@ -21,31 +20,40 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label modal-text">Nombre*</label>
-                                <input type="text" class="form-control" name="nombre" id="nombre" required>
+                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                    value="<?= htmlspecialchars($old['nombre'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                                    required>
                             </div>
                             <div class="mb-3">
                                 <label for="apellido1" class="form-label modal-text ">Primer Apellido*</label>
-                                <input type="text" class="form-control" name="apellido1" id="apellido1" required>
+                                <input type="text" class="form-control" name="apellido1" id="apellido1"
+                                    value="<?= htmlspecialchars($old['apellido1'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                                    required>
                             </div>
                             <div class="mb-3">
                                 <label for="apellido2" class="form-label modal-text">Segundo Apellido</label>
-                                <input type="text" class="form-control" name="apellido2" id="apellido2">
+                                <input type="text" class="form-control" name="apellido2" id="apellido2"
+                                    value="<?= htmlspecialchars($old['apellido2'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="edad" class="form-label modal-text">Edad</label> <!--REVISAR SON LOS PARAMETROS DEL FORMULARIO CUANDO REGISTRAMOS A UN NUEVO USUARIO-->
-                                <input type="number" class="form-control" name="edad" id="edad" min="10" max="100">
+                                <input type="number" class="form-control" name="edad" id="edad" min="10" max="100"
+                                    value="<?= htmlspecialchars($old['edad'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="numero_telefono" class="form-label modal-text ">Numero Telefonico </label>
-                                <input type="text" inputmode="numeric" class="form-control" name="numero_telefono" id="numero_telefono" pattern="[0-9]{10}">
+                                <input type="text" inputmode="numeric" class="form-control" name="numero_telefono" id="numero_telefono" pattern="[0-9]{10}"
+                                    value="<?= htmlspecialchars($old['numero_telefono'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="contacto_familiar" class="form-label modal-text ">Contacto Familiar </label>
-                                <input type="text" inputmode="numeric" class="form-control" name="contacto_familiar" id="contacto_familiar" pattern="[0-9]{10}">
+                                <input type="text" inputmode="numeric" class="form-control" name="contacto_familiar" id="contacto_familiar" pattern="[0-9]{10}"
+                                    value="<?= htmlspecialchars($old['contacto_familiar'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="descripcion_medica" class="form-label modal-text ">Descripcion del Cliente</label>
-                                <input type="text" class="form-control" name="descripcion_medica" id="descripcion_medica">
+                                <input type="text" class="form-control" name="descripcion_medica" id="descripcion_medica"
+                                    value="<?= htmlspecialchars($old['descripcion_medica'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                             </div>
                             <!--
                         <div class="mb-3">
@@ -58,7 +66,10 @@
                                 <select class="form-select" name="categoria" id="categoria">
                                     <option value="" selected>--Seleccionar categoria--</option>
                                     <?php foreach ($categorias as $c): ?>
-                                        <option value="<?= $c['id_categoria'] ?>"><?= $c['nombre'] ?></option>
+                                        <option value="<?= (int)$c['id_categoria'] ?>"
+                                            <?= ((string)$c['id_categoria'] === (string)($old['id_categoria'] ?? '')) ? 'selected' : '' ?>>
+                                            <?= htmlspecialchars($c['nombre'] ?? '', ENT_QUOTES, 'UTF-8') ?>
+                                        </option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -97,3 +108,13 @@
                     </form>
                 </div>
             </div>
+            <?php if (!empty($openModal)): ?>
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const el = document.getElementById('<?= htmlspecialchars($openModal, ENT_QUOTES, 'UTF-8') ?>');
+                        if (el && window.bootstrap) {
+                            new bootstrap.Modal(el).show();
+                        }
+                    });
+                </script>
+            <?php endif; ?>
