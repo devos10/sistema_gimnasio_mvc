@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Core\Controlador;
 use App\Core\Validador;
 use App\Core\AlertaFlash;
+use App\Models\LoginModelo;
 
 class LoginControlador extends Controlador
 {
@@ -53,6 +54,22 @@ class LoginControlador extends Controlador
             header('Location: ?controlador=login&accion=index');
             exit;
         }
+
+        $modelo= new LoginModelo($this->pdo);
+        $datos=$modelo->validarUsuario($usuario,$password);
+     
+        if($datos){
+            $_SESSION['usuario_id'] = $datos['id_usuario'];
+            $_SESSION['usuario_nombre'] = $datos['nombre']; 
+            $_SESSION['usuario_rol'] = $datos['id_rol'];
+            header('Location: ?controlador=entrenador&accion=index');
+            exit;
+              
+
+        }else{
+            header('Location: ?controlador=login&accion=index');
+        }
+
 
         
     }
