@@ -13,6 +13,20 @@ use App\Core\Controlador;
                 );
         }
 
+        public function socio(){
+            $this->renderizarVista('clientes/crear',
+            ['titulo'=>'Nuevo Socio']
+        );
+        }
+
+        public function crearSocio(){
+            //validamos que se envie por el metodo post
+            if($_SERVER['REQUEST_METHOD']!=='POST'){
+                header('Location: ?controlador=entrenador&accion=socio');
+                exit;
+            }
+
+        }
     }
 
 
