@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
@@ -15,11 +15,12 @@ class SocioControlador extends Controlador
     public function socio()
     {
         $modelo = new CategoriaModelo($this->pdo);
-        $categorias=$modelo->obtenerCategorias();
+        $categorias = $modelo->obtenerCategorias();
         $this->renderizarVista(
             'socios/crear',
-            ['titulo' => 'Nuevo Socio',
-            'categorias'=> $categorias
+            [
+                'titulo' => 'Nuevo Socio',
+                'categorias' => $categorias
             ]
         );
     }
@@ -62,12 +63,17 @@ class SocioControlador extends Controlador
         if ($validador->tieneErrores()) {
             //generamos variable de sesion con los datos de los campos que se volveran a mostrar en caso de error
             $_SESSION['old'] = [
-                'nombre' => $nombre,
-                'apellido1' => $apellido1,
-                'edad' => $edad,
-                'descripcion_medica' => $descripcionMedica
+                'nombre'            => $nombre,
+                'apellido1'         => $apellido1,
+                'apellido2'         => $apellido2,
+                'edad'              => $edad,
+                'numero_telefono'   => $numeroTelefono,
+                'contacto_familiar' => $contactoFamiliar,
+                'descripcion_medica' => $descripcionMedica,
+                'id_categoria'         => $idCategoria,
             ];
-
+            // Bandera para reabrir el modal en el GET
+            $_SESSION['abrirModal'] = 'modalNuevoCliente';
             $items = '';
             //recorremos los errores
             foreach ($validador->obtenerErrores() as $campo => $mensajes) {
@@ -130,5 +136,4 @@ class SocioControlador extends Controlador
             exit;
         }
     }
-    
 }
