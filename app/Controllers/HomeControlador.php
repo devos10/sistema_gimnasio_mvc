@@ -10,8 +10,8 @@ class HomeControlador extends Controlador{
     public function index():void{
 
         $this->renderizarVista('home/login',[
-            'titulo'=>'Inicio',
-            'mensaje'=>'Bienvenido a mi mvc'
+            'titulo'=>'Login',
+            'css'=>'login.css'
         ]);
 
     }
