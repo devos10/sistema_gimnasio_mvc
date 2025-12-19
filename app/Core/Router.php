@@ -46,6 +46,6 @@ class Router
         private function renderizarVista404(string $mensaje): void
     {
         $appName = APP_NAME;
-        require __DIR__ . '/../Views/public/errors/404.php';
+        require __DIR__ . '/../Views/errors/404.php';
     }
 }
