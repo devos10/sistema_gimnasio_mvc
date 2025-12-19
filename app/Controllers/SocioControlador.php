@@ -106,7 +106,7 @@ class SocioControlador extends Controlador
 
         //  Inserta con el modelo
         try {
-            $modelo = new EntrenadorModelo($this->pdo);
+            $modelo = new SocioModelo($this->pdo);
             $idNuevo = $modelo->crearSocio($datosSocio);
 
             AlertaFlash::exito('Cliente registrado', "ID #{$idNuevo}", [
