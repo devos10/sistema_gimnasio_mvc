@@ -1,0 +1,61 @@
+:root {
+  --tarjetaAzul: #040D15;
+  --rosaLetra: #F2134F;
+  --fondoAzul: linear-gradient(200deg, #03060c 0%, #080718 100%);
+  --fondoNegro: linear-gradient(200deg, #0f0f0f 0%, #000000 100%);
+
+  --barra: #02060C;
+
+  --azulLetra: #03AFEF;
+  --azulDetalles: #022859;
+  --negro: #000;
+  --blanco: #fff;
+  --degradadoBotones: linear-gradient(135deg, #0F59CC 0%, #de1855 100%);
+
+}
+
+
+body {
+  background: var(--fondoNegro);
+  color: var(--rosaLetra);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.login-box {
+  background: var(--negro);
+  border-radius: 15px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 25px rgb(0, 176, 239);
+}
+
+.login-box h2 {
+  color: var(--rosaLetra);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-control {
+  background-color: #e6eeff;
+  border: none;
+  border-radius: 10px;
+}
+
+.btn-login {
+  background: var(--degradadoBotones);
+  color: var(--blanco);
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(90deg, #f72585, #b5179e);
+}
