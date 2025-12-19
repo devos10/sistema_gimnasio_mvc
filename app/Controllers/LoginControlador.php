@@ -15,7 +15,7 @@ class LoginControlador extends Controlador
         $this->renderizarVista('home/login', [
             'titulo' => 'Login',
             'old' => $old,
-            'css'=>['/assets/css/login.css']
+            'css'=>'login.css'
         ]);
     }
 
