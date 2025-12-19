@@ -3,5 +3,6 @@
 <?php include_once (APP_URL.'Views/partials/head.php');?>
 <body>
    <h1><?= $mensaje ?></h1> 
+   <a href="?controlador=entrenador&accion=socio">Crear nuevo socio</a>
 </body>
 </html>
