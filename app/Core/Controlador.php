@@ -10,7 +10,6 @@ class Controlador{
     public function renderizarVista(string $vista, array $datos=[]): void{
         $datos['alertasFlash'] = AlertaFlash::consumirTodas(); //para obtener las alertas
         extract($datos); //va a extraer las llaves del array para convertirlas en varriables, por ese debe de ser clave valor el array
-        var_dump($datos);
         //generamos la ruta de la vista
 
         $rutaVista=__DIR__.'/../Views/'.$vista.'.php';
