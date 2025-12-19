@@ -16,10 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- JS de Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-    <?php if (!empty($css) && is_array($css)): ?>
-    <?php foreach ($css as $href): ?>
-      <link rel="stylesheet" href="/sistema_gimnasio_mvc/app<?= htmlspecialchars($href, ENT_QUOTES, 'UTF-8') ?>">
-    <?php endforeach; ?>
-  <?php endif; ?>
+    <?php if (!empty($css)): ?>
+            <link rel="stylesheet" href="<?=  APP_ARCHIVOS_CSS; ?><?= htmlspecialchars($css, ENT_QUOTES, 'UTF-8') ?>">
+    <?php endif; ?>
 </head>
