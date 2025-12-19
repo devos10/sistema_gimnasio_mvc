@@ -5,6 +5,9 @@ namespace App\Controllers;
 use App\Core\AlertaFlash;
 use App\Core\Controlador;
 use App\Core\Validador;
+use App\Models\EntrenadorModelo;
+use App\Models\CategoriaModelo;
+use PDOException;
 
 class EntrenadorControlador extends Controlador
 {
@@ -23,9 +26,13 @@ class EntrenadorControlador extends Controlador
 
     public function socio()
     {
+        $modelo = new CategoriaModelo($this->pdo);
+        $categorias=$modelo->obtenerCategorias();
         $this->renderizarVista(
             'clientes/crear',
-            ['titulo' => 'Nuevo Socio']
+            ['titulo' => 'Nuevo Socio',
+            'categorias'=> $categorias
+            ]
         );
     }
 
@@ -65,32 +72,74 @@ class EntrenadorControlador extends Controlador
 
         //verificamos si existen errores 
         if ($validador->tieneErrores()) {
-                //generamos variable de sesion con los datos de los campos que se volveran a mostrar en caso de error
-                $_SESSION['old'] = [
-                    'nombre' => $nombre,
-                    'apellido1' => $apellido1,
-                    'edad' => $edad,
-                    'descripcion_medica' => $descripcionMedica
-                ];
+            //generamos variable de sesion con los datos de los campos que se volveran a mostrar en caso de error
+            $_SESSION['old'] = [
+                'nombre' => $nombre,
+                'apellido1' => $apellido1,
+                'edad' => $edad,
+                'descripcion_medica' => $descripcionMedica
+            ];
 
-                $items = '';
-                //recorremos los errores
-                foreach ($validador->obtenerErrores() as $campo => $mensajes) {
-                    foreach ($mensajes as $msg) {
-                        //guardamos en items cada error 
-                        $items .= '<li>' . htmlspecialchars($msg, ENT_QUOTES, 'UTF-8') . '</li>';
-                    }
+            $items = '';
+            //recorremos los errores
+            foreach ($validador->obtenerErrores() as $campo => $mensajes) {
+                foreach ($mensajes as $msg) {
+                    //guardamos en items cada error 
+                    $items .= '<li>' . htmlspecialchars($msg, ENT_QUOTES, 'UTF-8') . '</li>';
                 }
-                //hacemos uso de la clase alerta para generar una alerta con los multiples errores
-                AlertaFlash::error('Corrige el formulario', '', [
-                    'html' => '<ul style="text-align:left; margin:0; padding-left:18px;">' . $items . '</ul>',
-                    'icon' => 'error',
-                ]);
+            }
+            //hacemos uso de la clase alerta para generar una alerta con los multiples errores
+            AlertaFlash::error('Corrige el formulario', '', [
+                'html' => '<ul style="text-align:left; margin:0; padding-left:18px;">' . $items . '</ul>',
+                'icon' => 'error',
+            ]);
+
+            //redireccionamos 
+            header('Location: ?controlador=entrenador&accion=socio');
+            exit;
         }
-        
 
+        //
+        $qr = null;
 
+        // 2) Arma UN SOLO ARRAY con keys que coincidan con tus placeholders
+        $datosSocio = [
+            'nombre' => $nombre,
+            'apellido1' => $apellido1,
+            'apellido2' => $apellido2,
+            'edad' => (int) $edad,
+            'numero_telefono' => $numeroTelefono,
+            'contacto_familiar' => $contactoFamiliar,
+            'descripcion_medica' => $descripcionMedica,
+            'foto' => $foto,
+            'id_categoria' => (int) $idCategoria,
+            'qr' => $qr,
+        ];
 
+        //  Inserta con el modelo
+        try {
+            $modelo = new EntrenadorModelo($this->pdo);
+            $idNuevo = $modelo->crearSocio($datosSocio);
 
+            AlertaFlash::exito('Cliente registrado', "ID #{$idNuevo}", [
+                'toast' => true,
+                'position' => 'top-end',
+                'timer' => 2200,
+                'showConfirmButton' => false
+            ]);
+
+            header('Location: ?controlador=entrenador&accion=socio');
+            exit;
+        } catch (PDOException $e) {
+            AlertaFlash::error('No se pudo registrar el cliente', 'Intenta de nuevo.', [
+                'toast' => true,
+                'position' => 'top-end',
+                'timer' => 2500,
+                'showConfirmButton' => false
+            ]);
+
+            header('Location: ?controlador=entrenador&accion=socio');
+            exit;
+        }
     }
 }
