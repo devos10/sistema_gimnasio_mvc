@@ -60,9 +60,12 @@ class LoginControlador extends Controlador
         $datos = $modelo->validarUsuario($usuario, $password);
 
         if ($datos) {
-            $_SESSION['usuario_id'] = $datos['id_usuario'];
-            $_SESSION['usuario_nombre'] = $datos['nombre'];
-            $_SESSION['usuario_rol'] = $datos['id_rol'];
+            $_SESSION['login_valido'] = [
+                'id' => $datos['id_usuario'],
+                'nombre' => $datos['nombre'],
+                'rol' => $datos['id_rol']
+            ];
+
             AlertaFlash::exito(
                 "Inicio correcto",
                 "Inicio de sesión exitoso",
@@ -71,7 +74,7 @@ class LoginControlador extends Controlador
                     'position' => 'top-end',
                     'timer' => 3000,
                     'showConfirmButton' => false,
-                    'timerProgressBar'=> true
+                    'timerProgressBar' => true
                 ]
             );
             header('Location: ?controlador=entrenador&accion=index');
