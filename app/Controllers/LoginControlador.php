@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Core\Controlador;
@@ -16,7 +17,7 @@ class LoginControlador extends Controlador
         $this->renderizarVista('home/login', [
             'titulo' => 'Login',
             'old' => $old,
-            'css'=>'login.css'
+            'css' => 'login.css'
         ]);
     }
 
@@ -34,7 +35,7 @@ class LoginControlador extends Controlador
         $validador->validarNoVacio('usuario', $usuario);
         $validador->validarNoVacio('password', $password);
         $usuario = $validador->limpiarCadena($usuario);
-        $password=$validador->limpiarCadena($password);
+        $password = $validador->limpiarCadena($password);
 
         if ($validador->tieneErrores()) {
             $_SESSION['old'] = ['usuario' => $usuario];
@@ -47,7 +48,7 @@ class LoginControlador extends Controlador
             }
 
             AlertaFlash::error('Corrige el formulario', '', [
-                'html' => '<ul style="text-align:left; margin:0; padding-left:18px;">'.$items.'</ul>',
+                'html' => '<ul style="text-align:left; margin:0; padding-left:18px;">' . $items . '</ul>',
                 'icon' => 'error',
             ]);
 
@@ -55,22 +56,42 @@ class LoginControlador extends Controlador
             exit;
         }
 
-        $modelo= new LoginModelo($this->pdo);
-        $datos=$modelo->validarUsuario($usuario,$password);
-     
-        if($datos){
+        $modelo = new LoginModelo($this->pdo);
+        $datos = $modelo->validarUsuario($usuario, $password);
+
+        if ($datos) {
             $_SESSION['usuario_id'] = $datos['id_usuario'];
-            $_SESSION['usuario_nombre'] = $datos['nombre']; 
+            $_SESSION['usuario_nombre'] = $datos['nombre'];
             $_SESSION['usuario_rol'] = $datos['id_rol'];
+            AlertaFlash::exito(
+                "Inicio correcto",
+                "Inicio de sesión exitoso",
+                [
+                    'toast' => true,
+                    'position' => 'top-end',
+                    'timer' => 3000,
+                    'showConfirmButton' => false,
+                    'timerProgressBar'=> true
+                ]
+            );
             header('Location: ?controlador=entrenador&accion=index');
             exit;
-              
-
-        }else{
+        } else {
+            AlertaFlash::error(
+                "Usuario Inválido",
+                "Usuario o Contraseña incorrectos!!!",
+                [
+                    //'toast' => true,
+                    'position' => 'center',
+                    //'timer' => 2000,
+                    'showConfirmButton' => true,
+                    'confirmButtonText' => 'Entendido',
+                    //'timerProgressBar'=> true,
+                    'icon' => 'error',
+                ]
+            );
             header('Location: ?controlador=login&accion=index');
+            exit;
         }
-
-
-        
     }
 }
