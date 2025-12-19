@@ -12,7 +12,7 @@
             <!-- Modal Nuevo Cliente -->
             <div class="modal fade" id="modalNuevoCliente" tabindex="-1" aria-labelledby="modalNuevoClienteLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form action="?controlador=entrenador&accion=crearSocio" method="POST" enctype="multipart/form-data" class="modal-content bg-dark text-light">
+                    <form action="?controlador=socio&accion=crearSocio" method="POST" enctype="multipart/form-data" class="modal-content bg-dark text-light">
                         <div class="modal-header border-0">
                             <h5 class="modal-title">Registrar Nuevo Cliente</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>

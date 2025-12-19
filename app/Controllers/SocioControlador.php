@@ -28,7 +28,7 @@ class SocioControlador extends Controlador
     {
         //validamos que se envie por el metodo post
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: ?controlador=entrenador&accion=socio');
+            header('Location: ?controlador=socio&accion=socio');
             exit;
         }
         //recibimos variables
@@ -83,7 +83,7 @@ class SocioControlador extends Controlador
             ]);
 
             //redireccionamos 
-            header('Location: ?controlador=entrenador&accion=socio');
+            header('Location: ?controlador=socio&accion=socio');
             exit;
         }
 
@@ -116,7 +116,7 @@ class SocioControlador extends Controlador
                 'showConfirmButton' => false
             ]);
 
-            header('Location: ?controlador=entrenador&accion=socio');
+            header('Location: ?controlador=socio&accion=socio');
             exit;
         } catch (PDOException $e) {
             AlertaFlash::error('No se pudo registrar el cliente', 'Intenta de nuevo.', [
@@ -126,7 +126,7 @@ class SocioControlador extends Controlador
                 'showConfirmButton' => false
             ]);
 
-            header('Location: ?controlador=entrenador&accion=socio');
+            header('Location: ?controlador=socio&accion=socio');
             exit;
         }
     }
