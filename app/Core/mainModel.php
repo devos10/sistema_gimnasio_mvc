@@ -18,9 +18,6 @@ abstract class MainModel
 
     }
 
-      protected function fetchAll(string $sql, array $params = []): array {
-        return $this->ejecutarConsulta($sql, $params)->fetchAll();
-  }
 
 }
 
