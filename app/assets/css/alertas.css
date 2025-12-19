@@ -1,0 +1,38 @@
+/* Base toast */
+.swal2-popup.swal2-toast {
+  border-radius: 12px;
+  font-size: 0.95rem;
+}
+
+/* Toast success/error/warning/info */
+.swal2-popup.swal2-toast.toast-success { background:#16a34a !important; color:#fff !important; }
+.swal2-popup.swal2-toast.toast-error   { background:#dc2626 !important; color:#fff !important; }
+.swal2-popup.swal2-toast.toast-warning { background:#f59e0b !important; color:#111827 !important; }
+.swal2-popup.swal2-toast.toast-info    { background:#2563eb !important; color:#fff !important; }
+
+/* Texto hereda color */
+.swal2-popup.swal2-toast .swal2-title,
+.swal2-popup.swal2-toast .swal2-html-container {
+  color: inherit !important;
+}
+
+/* Barra timer */
+.swal2-popup.swal2-toast .swal2-timer-progress-bar {
+  background: rgba(255,255,255,.6) !important;
+}
+
+/* Base modal */
+.swal2-popup {
+  border-radius: 16px;
+}
+
+/* Modal con borde superior por tipo */
+.swal2-popup.modal-success { border-top: 6px solid #16a34a !important; }
+.swal2-popup.modal-error   { border-top: 6px solid #dc2626 !important; }
+.swal2-popup.modal-warning { border-top: 6px solid #f59e0b !important; }
+.swal2-popup.modal-info    { border-top: 6px solid #2563eb !important; }
+
+/* Botón confirm más bonito (opcional) */
+.swal2-confirm {
+  border-radius: 10px !important;
+}
