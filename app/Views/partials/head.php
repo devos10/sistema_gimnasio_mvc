@@ -19,4 +19,5 @@
     <?php if (!empty($css)): ?>
             <link rel="stylesheet" href="<?=  APP_ARCHIVOS_CSS; ?><?= htmlspecialchars($css, ENT_QUOTES, 'UTF-8') ?>">
     <?php endif; ?>
+    <link rel="stylesheet" href="<?= APP_ARCHIVOS_CSS ?>alertas.css">
 </head>
