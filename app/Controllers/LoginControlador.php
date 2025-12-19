@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\Controlador;
 use App\Core\Validador;
 use App\Core\AlertaFlash;
+use App\Core\Autenticacion;
 use App\Models\LoginModelo;
 
 class LoginControlador extends Controlador
@@ -57,15 +58,10 @@ class LoginControlador extends Controlador
         }
 
         $modelo = new LoginModelo($this->pdo);
-        $datos = $modelo->validarUsuario($usuario, $password);
+        $datosLogin = $modelo->validarUsuario($usuario, $password);
 
-        if ($datos) {
-            $_SESSION['login_valido'] = [
-                'id' => $datos['id_usuario'],
-                'nombre' => $datos['nombre'],
-                'rol' => $datos['id_rol']
-            ];
-
+        if ($datosLogin) {
+            Autenticacion::login($datosLogin);
             AlertaFlash::exito(
                 "Inicio correcto",
                 "Inicio de sesión exitoso",
