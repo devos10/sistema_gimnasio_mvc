@@ -21,7 +21,7 @@ class SocioModelo extends MainModel{
         return (int) $this->pdo->lastInsertId();
     }
 
-    public function listarSocios(){
+    public function listarSocios(array $limite){
         $sql=$this->ejecutarConsulta(
         "SELECT 
             c.id_cliente,
@@ -39,9 +39,15 @@ class SocioModelo extends MainModel{
         FROM CLIENTE c
 		LEFT JOIN 
             CATEGORIA cat ON c.id_categoria= cat.id_categoria
-        ORDER BY c.id_cliente ASC LIMIT 10;"
-        );
+        ORDER BY c.id_cliente ASC LIMIT :inicio,:hasta;
+        ",
+        $limite);
         $clientes = $sql->fetchAll(PDO::FETCH_ASSOC);
         return $clientes; // lista de todos los clientes con informacion
+    }
+
+    public function contarSociosTotales(){
+        $sql=$this->ejecutarConsulta("SELECT COUNT(*) FROM cliente;");
+        return $sociosTotales=$sql->fetchColumn();
     }
 }
