@@ -14,16 +14,32 @@ class SocioControlador extends Controlador
 
     public function socio()
     {
+        $paginador = (int)($_GET['pagina'] ?? 1);
+        $cantidadDeRegistrosPorPagina = 10;
+
+        $inicio = ($paginador > 1) ? (($paginador * $cantidadDeRegistrosPorPagina) - $cantidadDeRegistrosPorPagina) : 0;
+
         $modelo = new CategoriaModelo($this->pdo);
         $categorias = $modelo->obtenerCategorias();
-        $modelo= new SocioModelo($this->pdo);
-        $listar=$modelo->listarSocios();
+        $modelo = new SocioModelo($this->pdo);
+        $listar = $modelo->listarSocios(['inicio'=>$inicio, 'hasta'=>$cantidadDeRegistrosPorPagina]);
+
+        $totalRegistros=$modelo->contarSociosTotales(); //esta variable debe de recibir la cantidad de registros que tiene la base de datos
+        $numeroDePaginas=ceil($totalRegistros/$cantidadDeRegistrosPorPagina); //esta varia tendra la cantidad de paginas que debe de tener nuestro paginador con base en la cantidad de registros
+        //hay que usar la funcion ceil que nos ayuda redondear al entero siguiente, ya que debebo de dividir la cantidad de registros entre el numero de registros por pagina
+        
+
         $this->renderizarVista(
             'socios/crear',
             [
                 'titulo' => 'Nuevo Socio',
                 'categorias' => $categorias,
-                'listarClientes'=>$listar
+                'listarClientes' => $listar,
+                'paginador'=>[
+                    'totalRegistros'=>$totalRegistros,
+                    'paginador'=>$paginador,
+                    'numeroDePaginas'=>$numeroDePaginas
+                    ]
             ]
         );
     }
