@@ -120,3 +120,4 @@
             <?php endif; ?>
 
             <?php include_once(APP_URL . 'Views/socios/listar.php');  ?>
+            <?php include_once(APP_URL . 'Views/components/paginador.php');  ?>
