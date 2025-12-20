@@ -118,3 +118,5 @@
                     });
                 </script>
             <?php endif; ?>
+
+            <?php include_once(APP_URL . 'Views/socios/listar.php');  ?>
