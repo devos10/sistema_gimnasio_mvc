@@ -16,11 +16,14 @@ class SocioControlador extends Controlador
     {
         $modelo = new CategoriaModelo($this->pdo);
         $categorias = $modelo->obtenerCategorias();
+        $modelo= new SocioModelo($this->pdo);
+        $listar=$modelo->listarSocios();
         $this->renderizarVista(
             'socios/crear',
             [
                 'titulo' => 'Nuevo Socio',
-                'categorias' => $categorias
+                'categorias' => $categorias,
+                'listarClientes'=>$listar
             ]
         );
     }
@@ -96,7 +99,7 @@ class SocioControlador extends Controlador
         //
         $qr = null;
 
-        // 2) Arma UN SOLO ARRAY con keys que coincidan con tus placeholders
+        // Arma UN SOLO ARRAY con keys que coincidan con los placeholders
         $datosSocio = [
             'nombre' => $nombre,
             'apellido1' => $apellido1,
